@@ -1,35 +1,85 @@
-# Getting Started with Create React App
+# # Hashtag Input Component
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+A flexible and user-friendly React component for handling hashtag inputs with TypeScript support. This component provides a modern, intuitive interface for adding and managing hashtags with various customization options.
 
-## Available Scripts
+## Features
 
-In the project directory, you can run:
+- 🏷️ Add hashtags using customizable separator keys (Enter, Space, Comma, etc.)
+- 🚫 Prevents duplicate tags with user feedback
+- ⌫ Remove tags via 'x' button or backspace key
+- 📏 Optional maximum tag limit
+- 🎨 Clean, modern design with pill-style tags
+- 💡 Built-in visual feedback for user actions
+- 📱 Responsive and mobile-friendly
+- 🔍 TypeScript support with full type definitions
 
-### `npm start`
+## Usage
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+Basic usage example:
+
+```tsx
+import React, { useState } from 'react';
+import HashtagInput from './components/HashtagInput';
+
+function App() {
+  const [hashtags, setHashtags] = useState<string[]>([]);
+
+  return (
+    <HashtagInput
+      value={hashtags}
+      onChange={setHashtags}
+    />
+  );
+}
+```
 
 The page will reload if you make edits.\
 You will also see any lint errors in the console.
 
-### `npm test`
+Advanced usage with all props:
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+```tsx
+<HashtagInput
+  value={hashtags}
+  onChange={setHashtags}
+  maxTags={5}
+  separators={['Enter', ' ', ',']}
+/>
+```
 
-### `npm run build`
+## Props
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+| Prop | Type | Required | Default | Description |
+|------|------|----------|---------|-------------|
+| `value` | `string[]` | Yes | - | Array of current hashtags |
+| `onChange` | `(hashtags: string[]) => void` | Yes | - | Callback function when tags change |
+| `maxTags` | `number` | No | undefined | Maximum number of allowed tags |
+| `separators` | `string[]` | No | `['Enter', ',']` | Keys that trigger new tag creation |
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+## Features in Detail
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+### 1. Tag Creation
+- Tags can be added using customizable separator keys
+- Default separators are Enter and comma
+- Whitespace is automatically trimmed
+- Empty tags are ignored
 
-### `npm run eject`
+### 2. Duplicate Prevention
+- Automatically prevents duplicate tags
+- Shows a friendly error message when duplicates are attempted
+- Error message fades out automatically after 2 seconds
+
+### 3. Tag Removal
+Two ways to remove tags:
+- Click the 'x' button next to any tag
+- Press backspace when the input is empty to remove the last tag
+
+### 4. Maximum Tags Limit
+When `maxTags` is set:
+- Shows current tag count (e.g., "3/5 tags used")
+- Prevents adding more tags when limit is reached
+- Visual feedback when limit is reached
+- Input field is hidden when maximum is reached
 
 **Note: this is a one-way operation. Once you `eject`, you can’t go back!**
 
